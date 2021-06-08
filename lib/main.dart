@@ -11,9 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Polypus_App',
-    darkTheme: ThemeData(
-      brightness: Brightness.dark
-    ),
+      darkTheme: ThemeData(brightness: Brightness.dark),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -21,4 +19,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

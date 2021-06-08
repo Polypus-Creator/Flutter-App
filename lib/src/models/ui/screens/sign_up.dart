@@ -10,6 +10,7 @@ class _SingUpState extends State<SingUp> {
   bool hiddenpasswordA = true;
   bool hiddenpasswordB = true;
   ApiClient client = ApiClient();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +24,13 @@ class _SingUpState extends State<SingUp> {
               height: 190.0,
             ),
           ),
-           Container(
-                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Text("¡Registrate y crea tu web!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: 21),
-                  )),
+          Container(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Text(
+                "¡Registrate y crea tu web!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+              )),
 
           // Textfield Nombre
           Container(
@@ -130,8 +131,9 @@ class _SingUpState extends State<SingUp> {
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ElevatedButton(
               onPressed: () async {
-                  bool status = await client.register("email", "username", "password");
-                  print(status);
+                bool status = await client.register(
+                    "email", "username", "passwodfsgfgrd");
+                print(status);
               },
               child: Text('Registrarse'),
             ),
@@ -140,12 +142,14 @@ class _SingUpState extends State<SingUp> {
       ),
     );
   }
-    void _passwrodVisible() {
+
+  void _passwrodVisible() {
     setState(() {
       hiddenpasswordA = !hiddenpasswordA;
     });
   }
-    void _passwrodVisibleB() {
+
+  void _passwrodVisibleB() {
     setState(() {
       hiddenpasswordB = !hiddenpasswordB;
     });

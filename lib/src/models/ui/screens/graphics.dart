@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:polypus_app/src/models/ui/screens/settings.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
 class Graphics extends StatefulWidget {
   @override
   _GraphicsState createState() => _GraphicsState();
@@ -47,6 +46,7 @@ class _GraphicsState extends State<Graphics> {
     ChartData("sep", 32),
     ChartData("Oct", 40)
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +62,6 @@ class _GraphicsState extends State<Graphics> {
           automaticallyImplyLeading: false,
         ),
         body: ListView(children: [
-   
           Card(
             margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 35),
             elevation: 15,

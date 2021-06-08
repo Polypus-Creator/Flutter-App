@@ -12,6 +12,7 @@ class LogIN extends StatefulWidget {
 
 class _LogINState extends State<LogIN> {
   bool hiddenpassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
