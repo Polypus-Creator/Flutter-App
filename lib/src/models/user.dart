@@ -13,7 +13,7 @@ class User {
     return new User(
       username: map['username'] as String,
       email: map['email'] as String,
-      createDate: map['create_date'] as DateTime,
+      createDate: DateTime.parse(map['create_date']),
     );
   }
 
@@ -22,7 +22,7 @@ class User {
     return {
       'username': this.username,
       'email': this.email,
-      'create_date': this.createDate,
+      'create_date': this.createDate.toString(),
     } as Map<String, dynamic>;
   }
 }
