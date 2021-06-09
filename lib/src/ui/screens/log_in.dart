@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polypus_app/src/api/api_exception.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 import 'package:polypus_app/src/config/routes.dart';
 import 'package:polypus_app/src/ui/screens/recover_password.dart';
@@ -107,10 +108,16 @@ class _LogInState extends State<LogIn> {
 
   Future<void> _signIn() async {
     var api = ApiClient();
-    var result =
-        await api.login(usernameController.text, passwordController.text);
-    if (result) {
-      Navigator.pushNamed(context, Routes.mainHolder);
+    try {
+      var result =
+          await api.login(usernameController.text, passwordController.text);
+      if (result) {
+        Navigator.pushNamed(context, Routes.mainHolder);
+      }
+    } on ApiException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message)),
+      );
     }
   }
 }
