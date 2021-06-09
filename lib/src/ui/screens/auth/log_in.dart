@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:polypus_app/src/api/api_exception.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 import 'package:polypus_app/src/config/routes.dart';
-import 'package:polypus_app/src/ui/screens/auth/recover_password.dart';
-import 'package:polypus_app/src/ui/screens/auth/register.dart';
 
 class LogIn extends StatefulWidget {
   LogIn();
@@ -82,12 +80,18 @@ class _LogInState extends State<LogIn> {
             ),
             TextButton(
                 onPressed: () {
-                  _singUp();
+                  Navigator.pushNamed(context, Routes.register).then((value) {
+                    if (value != null && value == true) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Has sido registrado correctamente, " +
+                              "por favor inicia sesión para continuar")));
+                    }
+                  });
                 },
-                child: Text("¿Todavía no tienes cuenta?¡Registrate!")),
+                child: Text("¿Todavía no tienes cuenta? ¡Registrate!")),
             TextButton(
                 onPressed: () {
-                  _password();
+                  Navigator.pushNamed(context, Routes.recoverPassword);
                 },
                 child: Text("¿Has olvidado tu contraseña?"))
           ],
@@ -96,23 +100,13 @@ class _LogInState extends State<LogIn> {
     );
   }
 
-  void _password() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => RecoverPassword()));
-  }
-
-  void _singUp() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Register()));
-  }
-
   Future<void> _signIn() async {
     var api = ApiClient();
     try {
       var result =
           await api.login(usernameController.text, passwordController.text);
       if (result) {
-        Navigator.pushNamed(context, Routes.mainHolder);
+        Navigator.pushReplacementNamed(context, Routes.mainHolder);
       }
     } on ApiException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

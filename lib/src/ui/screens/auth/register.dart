@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polypus_app/src/api/api_exception.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 
 class Register extends StatefulWidget {
@@ -131,9 +132,15 @@ class _RegisterState extends State<Register> {
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ElevatedButton(
               onPressed: () async {
-                bool status = await client.register(
-                    "email", "username", "passwodfsgfgrd");
-                print(status);
+                try {
+                  bool status = await client.register(
+                      "email", "username", "passwodfsgfgrd");
+                  if (status) Navigator.pop(context, true);
+                } on ApiException catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(e.message)),
+                  );
+                }
               },
               child: Text('Registrarse'),
             ),
