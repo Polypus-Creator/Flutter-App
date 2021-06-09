@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polypus_app/src/models/ui/screens/settings.dart';
+import 'package:polypus_app/src/ui/screens/settings.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Graphics extends StatefulWidget {

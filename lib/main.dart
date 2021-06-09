@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:polypus_app/src/config/globals.dart';
 import 'package:polypus_app/src/config/routes.dart';
 import 'package:polypus_app/src/config/styles.dart';
-import 'package:polypus_app/src/models/ui/screens/index.dart';
-import 'package:polypus_app/src/models/ui/screens/log_in.dart';
 import 'package:polypus_app/src/models/user.dart';
+import 'package:polypus_app/src/ui/screens/index.dart';
+import 'package:polypus_app/src/ui/screens/log_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:polypus_app/src/models/ui/screens/design_web.dart';
-import 'package:polypus_app/src/models/ui/screens/graphics.dart';
-import 'package:polypus_app/src/models/ui/screens/incident.dart';
-import 'package:polypus_app/src/models/ui/screens/profile.dart';
+import 'package:polypus_app/src/ui/screens/design_web.dart';
+import 'package:polypus_app/src/ui/screens/graphics.dart';
+import 'package:polypus_app/src/ui/screens/incident.dart';
+import 'package:polypus_app/src/ui/screens/profile.dart';
 
 class Index extends StatefulWidget {
   @override
