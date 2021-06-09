@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:polypus_app/src/api/api_exception.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 import 'package:polypus_app/src/config/routes.dart';
-import 'package:polypus_app/src/ui/screens/recover_password.dart';
-import 'package:polypus_app/src/ui/screens/register.dart';
+import 'package:polypus_app/src/ui/screens/auth/recover_password.dart';
+import 'package:polypus_app/src/ui/screens/auth/register.dart';
 
 class LogIn extends StatefulWidget {
   LogIn();
