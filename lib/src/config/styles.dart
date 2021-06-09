@@ -9,8 +9,11 @@ class AppStyles {
     headline3: TextStyle(),
     headline4: TextStyle(),
     headline5: TextStyle(),
-    headline6: TextStyle(),
-    button: TextStyle(fontWeight: FontWeight.bold),
+    headline6: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+    ),
+    button: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
     bodyText1: TextStyle(),
     bodyText2: TextStyle(),
     subtitle1: TextStyle(),
@@ -21,16 +24,23 @@ class AppStyles {
 
   static ThemeData mainTheme = ThemeData(
     primaryColor: primaryColor,
+    textTheme: textTheme,
     inputDecorationTheme: InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: primaryColor, width: 5.0),
+        borderRadius: BorderRadius.circular(10),
+      ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderSide: BorderSide(width: 5.0),
+        borderRadius: BorderRadius.circular(10),
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          primary: primaryColor,
-          textStyle: textTheme.button!.copyWith(fontSize: 18)),
+        primary: primaryColor,
+        textStyle: textTheme.button,
+      ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(

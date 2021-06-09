@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:polypus_app/src/api/api_exception.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 import 'package:polypus_app/src/config/routes.dart';
+import 'package:polypus_app/src/ui/widgets/password_text_field.dart';
 
 class LogIn extends StatefulWidget {
   LogIn();
@@ -11,100 +12,93 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  bool hiddenpassword = true;
-
-  var passwordController = TextEditingController();
-  var usernameController = TextEditingController();
+  var _passwordController = TextEditingController();
+  var _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textButtonTheme = Theme.of(context)
+        .textTheme
+        .headline6!
+        .copyWith(color: Theme.of(context).primaryColor);
+
     return Scaffold(
-      body: Center(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: Image.asset(
-                'assets/polypus.png',
-                width: 140.0,
-                height: 190.0,
+            SizedBox(height: 32),
+            Image.asset(
+              'assets/polypus.png',
+              width: 140.0,
+              height: 190.0,
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(
+                labelText: "Usuario",
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  labelText: "Usuario",
+            SizedBox(height: 16),
+            PasswordTextField(
+              text: "Contraseña",
+              controller: _passwordController,
+            ),
+            SizedBox(height: 48),
+            ElevatedButton(
+              onPressed: () => _signIn(),
+              child: Text('Iniciar sesion'),
+            ),
+            SizedBox(height: 16),
+            InkWell(
+              onTap: () => _registerClick(context),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "¿Todavía no tienes cuenta? ¡Registrate!",
+                  style: textButtonTheme,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                controller: passwordController,
-                obscureText: hiddenpassword,
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    labelText: "Contraseña",
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          // _passwrodVisible();
-                        },
-                        icon: hiddenpassword
-                            ? Icon(Icons.visibility_off)
-                            : Icon(Icons.visibility))),
+            InkWell(
+              onTap: () => Navigator.pushNamed(context, Routes.recoverPassword),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "¿Has olvidado tu contraseña?",
+                  style: textButtonTheme,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: ElevatedButton(
-                onPressed: () {
-                  _signIn();
-                },
-                child: Text('Iniciar sesion'),
-              ),
-            ),
-            TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.register).then((value) {
-                    if (value != null && value == true) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Has sido registrado correctamente, " +
-                              "por favor inicia sesión para continuar")));
-                    }
-                  });
-                },
-                child: Text("¿Todavía no tienes cuenta? ¡Registrate!")),
-            TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.recoverPassword);
-                },
-                child: Text("¿Has olvidado tu contraseña?"))
+            )
           ],
         ),
       ),
     );
   }
 
-  Future<void> _signIn() async {
+  void _registerClick(BuildContext context) {
+    Navigator.pushNamed(context, Routes.register).then((value) {
+      if (value != null && value == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Has sido registrado correctamente, por favor inicia sesión para continuar",
+            ),
+          ),
+        );
+      }
+    });
+  }
+
+  void _signIn() async {
     var api = ApiClient();
     try {
       var result =
-          await api.login(usernameController.text, passwordController.text);
+          await api.login(_usernameController.text, _passwordController.text);
       if (result) {
         Navigator.pushReplacementNamed(context, Routes.mainHolder);
       }
