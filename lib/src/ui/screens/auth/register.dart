@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:polypus_app/src/api/api_exception.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
+import 'package:polypus_app/src/ui/widgets/password_text_field.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -8,157 +9,84 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  bool hiddenpasswordA = true;
-  bool hiddenpasswordB = true;
   ApiClient client = ApiClient();
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Image.asset(
-              'assets/polypus.png',
-              width: 140.0,
-              height: 190.0,
+          SizedBox(height: 16),
+          Image.asset(
+            'assets/polypus.png',
+            width: 140.0,
+            height: 190.0,
+          ),
+          SizedBox(height: 16),
+          Text(
+            "¡Registrate y crea tu web!",
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          SizedBox(height: 16),
+          //TextField Usuario
+          TextField(
+            controller: _usernameController,
+            decoration: InputDecoration(
+              labelText: "Usuario",
             ),
           ),
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: Text(
-                "¡Registrate y crea tu web!",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
-              )),
-
-          // Textfield Nombre
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.cyan),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  labelText: "Nombre",
-                ),
-              )),
-
+          SizedBox(height: 16),
           //TextField Email
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  labelText: "Email",
-                ),
-              )),
-          //TextField Usuario
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  labelText: "Usuario",
-                ),
-              )),
-          //TextField Contraseña
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                obscureText: hiddenpasswordA,
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    labelText: "Contraseña",
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        _passwrodVisible();
-                      },
-                      icon: hiddenpasswordA
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
-                    )),
-              )),
-          //TextField Confirmacion
-
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                obscureText: hiddenpasswordB,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      _passwrodVisibleB();
-                    },
-                    icon: hiddenpasswordB
-                        ? Icon(Icons.visibility_off)
-                        : Icon(Icons.visibility),
-                  ),
-                  labelText: "Confirmar Contraseña",
-                ),
-              )),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: ElevatedButton(
-              onPressed: () async {
-                try {
-                  bool status = await client.register(
-                      "email", "username", "passwodfsgfgrd");
-                  if (status) Navigator.pop(context, true);
-                } on ApiException catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(e.message)),
-                  );
-                }
-              },
-              child: Text('Registrarse'),
+          TextField(
+            controller: _emailController,
+            decoration: InputDecoration(
+              labelText: "Email",
             ),
+          ),
+          SizedBox(height: 16),
+          //TextField Contraseña
+          PasswordTextField(
+            text: "Contraseña",
+            controller: _passwordController,
+          ),
+          SizedBox(height: 16),
+          //TextField Confirmacion
+          PasswordTextField(
+            text: "Confirmar Contraseña",
+            controller: _confirmController,
+          ),
+          SizedBox(height: 32),
+          ElevatedButton(
+            onPressed: () => _registerButton(context),
+            child: Text('Registrarse'),
           ),
         ]),
       ),
     );
   }
 
-  void _passwrodVisible() {
-    setState(() {
-      hiddenpasswordA = !hiddenpasswordA;
-    });
-  }
-
-  void _passwrodVisibleB() {
-    setState(() {
-      hiddenpasswordB = !hiddenpasswordB;
-    });
+  Future<void> _registerButton(BuildContext context) async {
+    if (_passwordController.text != _confirmController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Las contraseñas no coinciden!")),
+      );
+    } else {
+      try {
+        bool status = await client.register(_emailController.text,
+            _usernameController.text, _passwordController.text);
+        if (status) Navigator.pop(context, true);
+      } on ApiException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message)),
+        );
+      }
+    }
   }
 }
