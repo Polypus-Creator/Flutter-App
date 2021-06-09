@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:polypus_app/src/ui/screens/settings.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class Graphics extends StatefulWidget {
+class Stats extends StatefulWidget {
   @override
-  _GraphicsState createState() => _GraphicsState();
+  _StatsState createState() => _StatsState();
 }
 
-class _GraphicsState extends State<Graphics> {
+class _StatsState extends State<Stats> {
   //CIRCULAR EJEMPLO
 
   late List<GDPData> _charData;

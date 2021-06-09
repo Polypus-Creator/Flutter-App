@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 
-class SingUp extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _SingUpState createState() => _SingUpState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SingUpState extends State<SingUp> {
+class _RegisterState extends State<Register> {
   bool hiddenpasswordA = true;
   bool hiddenpasswordB = true;
   ApiClient client = ApiClient();

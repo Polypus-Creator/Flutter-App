@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:polypus_app/src/ui/screens/settings.dart';
 
-class Incident extends StatefulWidget {
+class CreateTicket extends StatefulWidget {
   @override
-  _IncidentState createState() => _IncidentState();
+  _CreateTicketState createState() => _CreateTicketState();
 }
 
-class _IncidentState extends State<Incident> {
+class _CreateTicketState extends State<CreateTicket> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

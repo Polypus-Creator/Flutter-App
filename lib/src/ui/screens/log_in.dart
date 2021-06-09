@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 import 'package:polypus_app/src/config/routes.dart';
-import 'package:polypus_app/src/ui/screens/password.dart';
-import 'package:polypus_app/src/ui/screens/sign_up.dart';
+import 'package:polypus_app/src/ui/screens/recover_password.dart';
+import 'package:polypus_app/src/ui/screens/register.dart';
 
-class LogIN extends StatefulWidget {
-  LogIN();
+class LogIn extends StatefulWidget {
+  LogIn();
 
   @override
-  _LogINState createState() => _LogINState();
+  _LogInState createState() => _LogInState();
 }
 
-class _LogINState extends State<LogIN> {
+class _LogInState extends State<LogIn> {
   bool hiddenpassword = true;
 
   var passwordController = TextEditingController();
@@ -97,11 +97,12 @@ class _LogINState extends State<LogIN> {
 
   void _password() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PasswordReturn()));
+        context, MaterialPageRoute(builder: (context) => RecoverPassword()));
   }
 
   void _singUp() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SingUp()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Register()));
   }
 
   Future<void> _signIn() async {

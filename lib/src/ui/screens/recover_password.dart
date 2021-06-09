@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PasswordReturn extends StatefulWidget {
+class RecoverPassword extends StatefulWidget {
   @override
-  _PasswordReturnState createState() => _PasswordReturnState();
+  _RecoverPasswordState createState() => _RecoverPasswordState();
 }
 
-class _PasswordReturnState extends State<PasswordReturn> {
+class _RecoverPasswordState extends State<RecoverPassword> {
   bool hiddenpasswordA = true;
 
   bool hiddenpasswordB = true;

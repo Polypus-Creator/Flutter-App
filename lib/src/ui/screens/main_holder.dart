@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:polypus_app/src/ui/screens/create_ticket.dart';
 import 'package:polypus_app/src/ui/screens/design_web.dart';
-import 'package:polypus_app/src/ui/screens/graphics.dart';
-import 'package:polypus_app/src/ui/screens/incident.dart';
 import 'package:polypus_app/src/ui/screens/profile.dart';
+import 'package:polypus_app/src/ui/screens/stats.dart';
 
-class Index extends StatefulWidget {
+class MainHolder extends StatefulWidget {
   @override
-  _IndexState createState() => _IndexState();
+  _MainHolderState createState() => _MainHolderState();
 }
 
-class _IndexState extends State<Index> {
+class _MainHolderState extends State<MainHolder> {
   int pageIndex = 0;
   List<Widget> pageList = <Widget>[
-    Graphics(),
+    Stats(),
     DesignWeb(),
-    Incident(),
+    CreateTicket(),
     Profile(),
 
     // Settings()
