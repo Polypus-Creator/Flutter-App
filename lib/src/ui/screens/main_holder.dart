@@ -26,6 +26,7 @@ class _MainHolderState extends State<MainHolder> {
         body: pageList[pageIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: pageIndex,
+          type: BottomNavigationBarType.fixed,
           onTap: (value) {
             setState(() {
               pageIndex = value;
@@ -40,8 +41,7 @@ class _MainHolderState extends State<MainHolder> {
                 icon: Icon(Icons.add_alert), label: "Incidencias"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
           ],
-          selectedItemColor: Colors.blue,
-          backgroundColor: Colors.red[300],
+          selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.blueGrey,
           showUnselectedLabels: true,
         ));
