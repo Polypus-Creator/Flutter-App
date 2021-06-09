@@ -10,9 +10,11 @@ import 'package:polypus_app/src/ui/screens/log_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? user = prefs.getString(Globals.userKey);
   if (user != null) {
+    print("loading user");
     Globals.token = prefs.getString(Globals.tokenKey);
     Globals.user = User.fromMap(jsonDecode(user));
   }
@@ -31,7 +33,6 @@ class MyApp extends StatelessWidget {
         Routes.logIn: (context) => LogIN(),
         Routes.mainHolder: (context) => Index(),
       },
-      supportedLocales: [Locale("es", "es")],
       initialRoute: Globals.user == null ? Routes.logIn : Routes.mainHolder,
     );
   }
