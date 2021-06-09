@@ -50,4 +50,29 @@ class ApiClient {
     }
     return false;
   }
+
+  Future<bool> logout() async {
+    var request = rc.Request(
+      url: '$_apiUrl/logout.php',
+      method: rc.RequestMethod.get,
+    );
+
+    var response = await client.execute(
+      request: request,
+      authorizer: rc.TokenAuthorizer(token: Globals.token ?? ""),
+    );
+
+    if (response.body["error"] == false) {
+      Globals.user = null;
+      Globals.token = null;
+
+      //Unset shared prefs
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.remove(Globals.tokenKey);
+        prefs.remove(Globals.userKey);
+      });
+      return true;
+    }
+    return false;
+  }
 }
