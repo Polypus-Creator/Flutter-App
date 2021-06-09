@@ -13,6 +13,11 @@ class ApiClient {
     var request = rc.Request(
       url: '$_apiUrl/register.php',
       method: rc.RequestMethod.post,
+      body: jsonEncode({
+        "Username": username,
+        "Password": password,
+        "Email": email,
+      }),
     );
 
     var response = await client.execute(request: request);
@@ -24,6 +29,10 @@ class ApiClient {
     var request = rc.Request(
       url: '$_apiUrl/login.php',
       method: rc.RequestMethod.post,
+      body: jsonEncode({
+        "Username": username,
+        "Password": password,
+      }),
     );
 
     var response = await client.execute(request: request);
