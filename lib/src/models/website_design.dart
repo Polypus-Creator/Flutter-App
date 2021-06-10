@@ -1,6 +1,5 @@
-import 'package:polypus_app/src/util/util.dart' as util;
 import 'dart:ui';
-import 'package:flutter/material.dart';
+
 import 'package:polypus_app/src/util/util.dart';
 
 class WebsiteDesign {
