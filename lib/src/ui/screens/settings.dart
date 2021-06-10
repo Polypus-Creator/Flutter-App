@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:polypus_app/src/api/api_requests.dart';
+import 'package:polypus_app/src/config/routes.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -65,14 +67,19 @@ class _SettingsState extends State<Settings> {
           Card(
               child: ListTile(
             leading: Icon(
-              Icons.favorite,
+              Icons.logout,
               color: Colors.blue,
             ),
             title: Text(
-              "Centro de Información sobre el COVID-19",
+              "Cerrar sesión",
               style: TextStyle(color: Colors.black),
             ),
-            onTap: () {},
+            onTap: () {
+              ApiClient().logout().then((value) {
+                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushReplacementNamed(context, Routes.logIn);
+              });
+            },
           )),
         ]),
       ),
