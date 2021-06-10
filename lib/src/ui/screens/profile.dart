@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:polypus_app/src/config/globals.dart';
 import 'package:polypus_app/src/config/styles.dart';
-import 'package:polypus_app/src/util/Util.dart';
+import 'package:polypus_app/src/util/util.dart';
 
 class Profile extends StatefulWidget {
   @override
