@@ -1,4 +1,4 @@
-package com.example.polypus_app
+package me.eudald.polypus.android
 
 import io.flutter.embedding.android.FlutterActivity
 

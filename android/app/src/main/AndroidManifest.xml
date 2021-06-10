@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.polypus_app">
+    package="me.eudald.polypus.android">
    <application
-        android:label="polypus_app"
+        android:label="Polypus Creator"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
