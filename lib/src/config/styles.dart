@@ -27,14 +27,14 @@ class AppStyles {
     textTheme: textTheme,
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: primaryColor, width: 2.0),
+        borderSide: BorderSide(color: primaryColor, width: 1.5),
         borderRadius: BorderRadius.circular(10),
       ),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2.0, color: Colors.grey),
+          borderSide: BorderSide(width: 1.5, color: Colors.grey[400]!),
           borderRadius: BorderRadius.circular(10)),
       border: OutlineInputBorder(
-        borderSide: BorderSide(width: 2.0),
+        borderSide: BorderSide(width: 1.5),
         borderRadius: BorderRadius.circular(10),
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
