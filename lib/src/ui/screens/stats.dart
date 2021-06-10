@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:polypus_app/src/ui/screens/settings.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Stats extends StatefulWidget {
@@ -47,70 +46,60 @@ class _StatsState extends State<Stats> {
     ChartData("Oct", 40)
   ];
 
+  var _cardElevation = 15.0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Graficos"),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () {
-                  _password();
-                },
-                icon: Icon(Icons.settings))
-          ],
-          automaticallyImplyLeading: false,
-        ),
-        body: ListView(children: [
-          Card(
-            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 35),
-            elevation: 15,
-            child: SfCartesianChart(
-                primaryXAxis: CategoryAxis(),
-                // Chart title
-                title: ChartTitle(
-                  text: 'Half yearly sales analysis',
-                ),
-                // Enable legend
-                legend: Legend(isVisible: true),
-                // Enable tooltip
-                tooltipBehavior: TooltipBehavior(enable: true),
-                series: <ChartSeries<_SalesData, String>>[
-                  LineSeries<_SalesData, String>(
-                      dataSource: data,
-                      xValueMapper: (_SalesData sales, _) => sales.year,
-                      yValueMapper: (_SalesData sales, _) => sales.sales,
-                      name: 'Sales',
-                      // Enable data label
-                      dataLabelSettings: DataLabelSettings(isVisible: true))
-                ]),
-          ),
-          //-------------------------------------------------------------------------------------------------
-          //CIRCULAR GRAPHICS Creacion
-          Card(
-            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 35),
-            elevation: 15,
-            child: SfCircularChart(
-              title: ChartTitle(text: 'Visitas cada tres meses'),
-              series: <CircularSeries>[
-                PieSeries<GDPData, String>(
-                    //ESTO ES PARA MOSTRAR LOS DATOS
-                    dataSource: _charData,
-                    xValueMapper: (GDPData data, _) => data.continent,
-                    yValueMapper: (GDPData data, _) => data.gdp,
-                    //ESTO ES PARA MOSTRAR LOS LABELS
-                    dataLabelSettings: DataLabelSettings(
-                      isVisible: true,
-                    )),
-              ],
+    return ListView(
+      children: [
+        Card(
+          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+          elevation: _cardElevation,
+          child: SfCartesianChart(
+            primaryXAxis: CategoryAxis(),
+            // Chart title
+            title: ChartTitle(
+              text: 'Half yearly sales analysis',
             ),
+            // Enable legend
+            legend: Legend(isVisible: true),
+            // Enable tooltip
+            tooltipBehavior: TooltipBehavior(enable: true),
+            series: [
+              LineSeries<_SalesData, String>(
+                dataSource: data,
+                xValueMapper: (_SalesData sales, _) => sales.year,
+                yValueMapper: (_SalesData sales, _) => sales.sales,
+                name: 'Sales',
+                // Enable data label
+                dataLabelSettings: DataLabelSettings(isVisible: true),
+              )
+            ],
           ),
-        ]));
-  }
-
-  void _password() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Settings()));
+        ),
+        //-------------------------------------------------------------------------------------------------
+        //CIRCULAR GRAPHICS Creacion
+        Card(
+          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+          elevation: _cardElevation,
+          child: SfCircularChart(
+            title: ChartTitle(text: 'Visitas cada tres meses'),
+            series: <CircularSeries>[
+              PieSeries<GDPData, String>(
+                //ESTO ES PARA MOSTRAR LOS DATOS
+                dataSource: _charData,
+                xValueMapper: (GDPData data, _) => data.continent,
+                yValueMapper: (GDPData data, _) => data.gdp,
+                //ESTO ES PARA MOSTRAR LOS LABELS
+                dataLabelSettings: DataLabelSettings(
+                  isVisible: true,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
 
