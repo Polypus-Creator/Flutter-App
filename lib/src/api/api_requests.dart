@@ -7,7 +7,7 @@ import 'package:rest_client/rest_client.dart' as rc;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
-  final String _apiUrl = "http://10.0.2.2";
+  final String _apiUrl = "http://polypus-api.eudald.me";
   final client = rc.Client();
 
   Future<bool> register(String email, String username, String password) async {
