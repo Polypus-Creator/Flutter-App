@@ -8,7 +8,9 @@ class AppStyles {
     headline2: TextStyle(),
     headline3: TextStyle(),
     headline4: TextStyle(),
-    headline5: TextStyle(),
+    headline5: TextStyle(
+      fontSize: 22,
+    ),
     headline6: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600,
@@ -49,6 +51,10 @@ class AppStyles {
       style: TextButton.styleFrom(
         primary: primaryColor,
       ),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor:
+          MaterialStateProperty.resolveWith<Color>((states) => primaryColor),
     ),
   );
 

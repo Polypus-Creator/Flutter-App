@@ -77,4 +77,28 @@ class ApiClient {
       prefs.remove(Globals.userKey);
     });
   }
+
+  Future<bool> sendTicket(
+      String description, String message, bool urgent) async {
+    var request = rc.Request(
+      url: '$_apiUrl/add_ticket.php',
+      method: rc.RequestMethod.post,
+      body: jsonEncode({
+        "title": description,
+        "description": message,
+        "urgent": urgent,
+      }),
+    );
+
+    var response = await client.execute(
+      request: request,
+      authorizer: rc.TokenAuthorizer(token: Globals.token ?? ""),
+    );
+    var error = response.body["error"];
+    if (error != false) {
+      throw ApiException(error);
+    }
+
+    return true;
+  }
 }
