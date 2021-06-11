@@ -8,7 +8,7 @@ import 'package:rest_client/rest_client.dart' as rc;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
-  final String _apiUrl = "http://10.0.2.2";
+  final String _apiUrl = "http://polypus-api.eudald.me";
   final client = rc.Client();
 
   Future<bool> register(String email, String username, String password) async {
@@ -103,7 +103,7 @@ class ApiClient {
     return true;
   }
 
-  Future<WebsiteDesign?> getDesign() async {
+  Future<WebsiteDesign> getDesign() async {
     var request = rc.Request(
       url: '$_apiUrl/get_design.php',
       method: rc.RequestMethod.get,
@@ -115,9 +115,28 @@ class ApiClient {
     );
     var error = response.body["error"];
     if (error != false) {
-      return null;
+      throw ApiException("Unexpected error");
     }
 
     return WebsiteDesign.fromMap(response.body["body"]);
+  }
+
+  Future<bool> updateDesign(WebsiteDesign design) async {
+    var request = rc.Request(
+      url: '$_apiUrl/update_design.php',
+      method: rc.RequestMethod.post,
+      body: jsonEncode(design.toMap()),
+    );
+
+    var response = await client.execute(
+      request: request,
+      authorizer: rc.TokenAuthorizer(token: Globals.token ?? ""),
+    );
+    var error = response.body["error"];
+    if (error != false) {
+      throw ApiException(error);
+    }
+
+    return true;
   }
 }
