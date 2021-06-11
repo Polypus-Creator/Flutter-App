@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppStyles {
-  static var primaryColor = Color(0xff00ccff);
+  static final primaryColor = Color(0xff00ccff);
+  static final secondaryColor = Color(0xff1E8449);
 
   static TextTheme textTheme = TextTheme(
     headline1: TextStyle(),
@@ -26,6 +27,7 @@ class AppStyles {
 
   static ThemeData mainTheme = ThemeData(
     primaryColor: primaryColor,
+    accentColor: secondaryColor,
     textTheme: textTheme,
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(

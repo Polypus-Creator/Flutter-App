@@ -19,70 +19,67 @@ class _SettingsState extends State<Settings> {
           Card(
               child: ListTile(
             leading: Icon(
-              Icons.info,
-              color: Colors.blue,
+              Icons.info_outline,
+              color: Theme.of(context).accentColor,
             ),
             title: Text(
               "Información",
-              style: TextStyle(color: Colors.black),
             ),
             onTap: () {},
           )),
           Card(
               child: ListTile(
             leading: Icon(
-              Icons.help,
-              color: Colors.blue,
+              Icons.help_outline,
+              color: Theme.of(context).accentColor,
             ),
             title: Text(
               "Ayuda",
-              style: TextStyle(color: Colors.black),
             ),
             onTap: () {},
           )),
           Card(
               child: ListTile(
             leading: Icon(
-              Icons.security,
-              color: Colors.blue,
+              Icons.task_outlined,
+              color: Theme.of(context).accentColor,
             ),
             title: Text(
-              "Seguridad",
-              style: TextStyle(color: Colors.black),
+              "Términos de servicio",
             ),
             onTap: () {},
           )),
           Card(
               child: ListTile(
             leading: Icon(
-              Icons.lock,
-              color: Colors.blue,
+              Icons.policy_outlined,
+              color: Theme.of(context).accentColor,
             ),
             title: Text(
               "Privacidad",
-              style: TextStyle(color: Colors.black),
             ),
             onTap: () {},
           )),
           Card(
               child: ListTile(
-            leading: Icon(
+                leading: Icon(
               Icons.logout,
-              color: Colors.blue,
+              color: Theme.of(context).accentColor,
             ),
             title: Text(
               "Cerrar sesión",
-              style: TextStyle(color: Colors.black),
             ),
-            onTap: () {
-              ApiClient().logout().then((value) {
-                Navigator.popUntil(context, (route) => route.isFirst);
-                Navigator.pushReplacementNamed(context, Routes.logIn);
-              });
-            },
+            onTap: () => _logout(context),
           )),
         ]),
       ),
     );
+  }
+
+  void _logout(BuildContext context) {
+    ApiClient().logout().then((value) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacementNamed(context, Routes.logIn);
+    });
   }
 }

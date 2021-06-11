@@ -30,7 +30,7 @@ class _CreateTicketState extends State<CreateTicket> {
               ),
               Icon(
                 Icons.feedback_sharp,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).accentColor,
                 size: 50,
               ),
             ],
