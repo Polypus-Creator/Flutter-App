@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:polypus_app/src/config/globals.dart';
 import 'package:polypus_app/src/config/routes.dart';
 import 'package:polypus_app/src/config/styles.dart';
@@ -8,10 +9,10 @@ import 'package:polypus_app/src/models/user.dart';
 import 'package:polypus_app/src/ui/screens/auth/log_in.dart';
 import 'package:polypus_app/src/ui/screens/auth/recover_password.dart';
 import 'package:polypus_app/src/ui/screens/auth/register.dart';
+import 'package:polypus_app/src/ui/screens/info.dart';
 import 'package:polypus_app/src/ui/screens/main_holder.dart';
 import 'package:polypus_app/src/ui/screens/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         Routes.recoverPassword: (context) => RecoverPassword(),
         Routes.mainHolder: (context) => MainHolder(),
         Routes.settings: (context) => Settings(),
+        Routes.info: (context) => Info(),
       },
       initialRoute: Globals.user == null ? Routes.logIn : Routes.mainHolder,
     );

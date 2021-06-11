@@ -14,6 +14,7 @@ dependencies:
   shared_preferences: ^2.0.6
   rest_client: ^2.0.1+2
   intl: ^0.17.0
+  package_info: ^2.0.2
 
   flutter:
     sdk: flutter

@@ -1,0 +1,11 @@
+Aplicación para el proyecto de fin de grado de Albert Castiñeira Aranda, Eudald Cardona i Albarracín, Alejandro Martínez Urbina, Jose Miguel Santos Palomera y Luis Isaac Ponce Vijil. Está hecha usando Flutter, y se comunica con el mismo backend de la aplicación de escritorio.
+
+Paquetes usados:
+• syncfusion_flutter_charts
+• flutter_colorpicker
+• shared_preferences
+• rest_client
+• intl
+• package_info
+• change_app_package_name
+• flutter_native_splash

@@ -25,7 +25,7 @@ class _SettingsState extends State<Settings> {
             title: Text(
               "Información",
             ),
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, Routes.info),
           )),
           Card(
               child: ListTile(
