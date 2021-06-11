@@ -86,6 +86,14 @@ class _RegisterState extends State<Register> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message)),
         );
+      } on Exception catch (er, stack) {
+        print(er);
+        print(stack);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  "Error inesperado, por favor, prueba de nuevo más tarde")),
+        );
       }
     }
   }
