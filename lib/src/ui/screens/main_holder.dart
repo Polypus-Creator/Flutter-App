@@ -55,6 +55,7 @@ class _MainHolderState extends State<MainHolder> {
         ],
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.blueGrey,
+        selectedFontSize: 12,
         showUnselectedLabels: true,
       ),
     );
