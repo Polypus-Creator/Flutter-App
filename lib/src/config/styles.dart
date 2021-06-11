@@ -56,6 +56,9 @@ class AppStyles {
       fillColor:
           MaterialStateProperty.resolveWith<Color>((states) => primaryColor),
     ),
+    cardTheme: CardTheme(
+      elevation: 2,
+    ),
   );
 
   static ThemeData darkTheme = mainTheme.copyWith(

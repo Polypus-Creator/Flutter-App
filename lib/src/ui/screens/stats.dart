@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Stats extends StatefulWidget {
@@ -7,119 +8,98 @@ class Stats extends StatefulWidget {
 }
 
 class _StatsState extends State<Stats> {
-  //CIRCULAR EJEMPLO
+  int _monthViews = 345;
+  int _timesBuilt = 42;
 
-  late List<GDPData> _charData;
-
-  @override
-  void initState() {
-    _charData = getChartData();
-    super.initState();
-  }
-
-  //CIRCULAR
-  List<GDPData> getChartData() {
-    final List<GDPData> charData = [
-      GDPData('AMERICA', 35),
-      GDPData('EUROPA', 28),
-      GDPData('OCEANIA', 34),
-      GDPData('ASIA', 32),
-      GDPData('AFRICA', 40)
-    ];
-    return charData;
-  }
-
-  //---------------------------------------------------------------------------------
-  //DATOS QUE SE INTRODUCIRAN PUESTOS EN LISTAS
-  List<_SalesData> data = [
-    _SalesData('Jan', 35),
-    _SalesData('Feb', 28),
-    _SalesData('Mar', 34),
-    _SalesData('Apr', 32),
-    _SalesData('May', 40)
+  List<StatsData> data = [
+    StatsData(DateTime(2020, 12), 301),
+    StatsData(DateTime(2021, 1), 354),
+    StatsData(DateTime(2021, 2), 284),
+    StatsData(DateTime(2021, 3), 343),
+    StatsData(DateTime(2021, 4), 327),
+    StatsData(DateTime(2021, 5), 404),
   ];
-  List<ChartData> chartData = [
-    ChartData("Jun", 35),
-    ChartData("July", 28),
-    ChartData("Ago", 34),
-    ChartData("sep", 32),
-    ChartData("Oct", 40)
-  ];
-
-  var _cardElevation = 15.0;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          elevation: _cardElevation,
-          child: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            // Chart title
-            title: ChartTitle(
-              text: 'Half yearly sales analysis',
-            ),
-            // Enable legend
-            legend: Legend(isVisible: true),
-            // Enable tooltip
-            tooltipBehavior: TooltipBehavior(enable: true),
-            series: [
-              LineSeries<_SalesData, String>(
-                dataSource: data,
-                xValueMapper: (_SalesData sales, _) => sales.year,
-                yValueMapper: (_SalesData sales, _) => sales.sales,
-                name: 'Sales',
-                // Enable data label
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-              )
-            ],
-          ),
-        ),
-        //-------------------------------------------------------------------------------------------------
-        //CIRCULAR GRAPHICS Creacion
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          elevation: _cardElevation,
-          child: SfCircularChart(
-            title: ChartTitle(text: 'Visitas cada tres meses'),
-            series: <CircularSeries>[
-              PieSeries<GDPData, String>(
-                //ESTO ES PARA MOSTRAR LOS DATOS
-                dataSource: _charData,
-                xValueMapper: (GDPData data, _) => data.continent,
-                yValueMapper: (GDPData data, _) => data.gdp,
-                //ESTO ES PARA MOSTRAR LOS LABELS
-                dataLabelSettings: DataLabelSettings(
-                  isVisible: true,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView(
+        children: [
+          Row(
+            children: [
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Visitas este mes",
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      Text("$_monthViews",
+                          style: Theme.of(context).textTheme.headline3)
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(),
+              Image.asset(
+                "assets/logo.png",
+                width: 100,
+              ),
+              Spacer(),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Veces generada",
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      Text("$_timesBuilt",
+                          style: Theme.of(context).textTheme.headline3)
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ),
-      ],
+          SizedBox(height: 8),
+          Card(
+            child: SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              enableAxisAnimation: true,
+              // Chart title
+              title: ChartTitle(
+                text: "Visitas últimos 6 meses",
+              ),
+              // Enable tooltip
+              tooltipBehavior: TooltipBehavior(enable: true),
+              series: [
+                LineSeries<StatsData, String>(
+                  dataSource: data,
+                  xValueMapper: (StatsData stats, _) => DateFormat.MMM(
+                          Localizations.localeOf(context).languageCode)
+                      .format(stats.date),
+                  yValueMapper: (StatsData stats, _) => stats.siteViews,
+                  name: 'Visitas',
+                  // Enable data label
+                  dataLabelSettings: DataLabelSettings(isVisible: true),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class _SalesData {
-  _SalesData(this.year, this.sales);
+class StatsData {
+  StatsData(this.date, this.siteViews);
 
-  final String year;
-  final double sales;
-}
-
-class ChartData {
-  ChartData(this.yearB, this.salesB);
-
-  final String yearB;
-  final double salesB;
-}
-
-class GDPData {
-  final String continent;
-  final int gdp;
-
-  GDPData(this.continent, this.gdp);
+  final DateTime date;
+  final double siteViews;
 }
