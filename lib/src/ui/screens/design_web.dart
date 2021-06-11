@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:polypus_app/src/api/api_exception.dart';
 import 'package:polypus_app/src/api/api_requests.dart';
 import 'package:polypus_app/src/models/website_design.dart';
 
@@ -25,7 +26,7 @@ class _DesignWebState extends State<DesignWeb> {
     "Profesional",
   ];
 
-  late Future<WebsiteDesign> design;
+  WebsiteDesign design2 = WebsiteDesign();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
 
@@ -34,162 +35,150 @@ class _DesignWebState extends State<DesignWeb> {
   @override
   void initState() {
     super.initState();
-    design = api.getDesign().then((value) {
+    api.getDesign().then((value) {
+      //make sure _fontItems has the new value
+      if (value.font != null && !_fontItems.contains(value.font)) {
+        _fontItems.add(value.font!);
+      }
+      //make sure _categories has the new value
+      if (value.font != null && !_categories.contains(value.category)) {
+        _categories.add(value.category!);
+      }
       _nameController.text = value.websiteName ?? "";
       _descriptionController.text = value.description ?? "";
-      return value;
+      setState(() => design2 = value);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     var _containerSize = 35.0;
-    return FutureBuilder<WebsiteDesign>(
-      future: design,
-      initialData: WebsiteDesign(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          //make sure _fontItems has the new value
-          if (snapshot.data!.font != null &&
-              !_fontItems.contains(snapshot.data!.font)) {
-            _fontItems.add(snapshot.data!.font!);
-          }
-          //make sure _categories has the new value
-          if (snapshot.data!.font != null &&
-              !_categories.contains(snapshot.data!.category)) {
-            _categories.add(snapshot.data!.category!);
-          }
-
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ListView(
-              children: [
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                              isDense: true, labelText: "Nombre de la Web"),
-                        ),
-                        SizedBox(height: 16),
-                        TextField(
-                          controller: _descriptionController,
-                          decoration: InputDecoration(
-                              isDense: true, labelText: "Descripción"),
-                        ),
-                        SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Text("Categoría"),
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Expanded(
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  isExpanded: true,
-                                  value: snapshot.data!.category,
-                                  icon: Icon(Icons.keyboard_arrow_down),
-                                  items: _categories
-                                      .map(
-                                        (String item) =>
-                                            DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(item),
-                                        ),
-                                      )
-                                      .toList(),
-                                  onChanged: (value) => setState(
-                                      () => snapshot.data!.category = value),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView(
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                        isDense: true, labelText: "Nombre de la Web"),
                   ),
-                ),
-                Card(
-                  child: Column(
+                  SizedBox(height: 16),
+                  TextField(
+                    controller: _descriptionController,
+                    decoration: InputDecoration(
+                        isDense: true, labelText: "Descripción"),
+                  ),
+                  SizedBox(height: 16),
+                  Row(
                     children: [
-                      ListTile(
-                        leading: Icon(
-                          Icons.color_lens,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        title: Text(
-                          "Color primario",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        onTap: () => _showPicker(
-                          context,
-                          'Elige el color primario',
-                          snapshot.data!.primaryColour ?? Colors.white,
-                          (newColour) => setState(
-                              () => snapshot.data!.primaryColour = newColour),
-                        ),
-                        trailing: Container(
-                          color: snapshot.data!.primaryColour,
-                          width: _containerSize,
-                          height: _containerSize,
-                        ),
+                      Text("Categoría"),
+                      SizedBox(
+                        width: 12,
                       ),
-                      SizedBox(height: 4),
-                      ListTile(
-                        leading: Icon(
-                          Icons.color_lens,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        title: Text(
-                          "Color secundario",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        onTap: () => _showPicker(
-                            context,
-                            'Elige el color secundario',
-                            snapshot.data!.secondaryColour ?? Colors.white,
-                            (newColour) => setState(() =>
-                                snapshot.data!.secondaryColour = newColour)),
-                        trailing: Container(
-                          color: snapshot.data!.secondaryColour,
-                          width: _containerSize,
-                          height: _containerSize,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      ListTile(
-                        leading: Icon(Icons.font_download_outlined),
-                        title: DropdownButtonHideUnderline(
+                      Expanded(
+                        child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             isExpanded: true,
-                            value: snapshot.data!.font,
+                            value: design2.category,
                             icon: Icon(Icons.keyboard_arrow_down),
-                            items: _fontItems
-                                .map((String item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(item),
-                                    ))
+                            items: _categories
+                                .map(
+                                  (String item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(item),
+                                  ),
+                                )
                                 .toList(),
                             onChanged: (value) =>
-                                setState(() => snapshot.data!.font = value),
+                                setState(() => design2.category = value),
                           ),
                         ),
                       ),
                     ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          Card(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.color_lens,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    "Color primario",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () => _showPicker(
+                    context,
+                    'Elige el color primario',
+                    design2.primaryColour ?? Colors.white,
+                    (newColour) =>
+                        setState(() => design2.primaryColour = newColour),
+                  ),
+                  trailing: Container(
+                    color: design2.primaryColour,
+                    width: _containerSize,
+                    height: _containerSize,
                   ),
                 ),
-                SizedBox(height: 16),
-                ElevatedButton(onPressed: () {}, child: Text("Guardar")),
+                SizedBox(height: 4),
+                ListTile(
+                  leading: Icon(
+                    Icons.color_lens,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    "Color secundario",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () => _showPicker(
+                      context,
+                      'Elige el color secundario',
+                      design2.secondaryColour ?? Colors.white,
+                      (newColour) =>
+                          setState(() => design2.secondaryColour = newColour)),
+                  trailing: Container(
+                    color: design2.secondaryColour,
+                    width: _containerSize,
+                    height: _containerSize,
+                  ),
+                ),
+                SizedBox(height: 4),
+                ListTile(
+                  leading: Icon(Icons.font_download_outlined),
+                  title: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      value: design2.font,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      items: _fontItems
+                          .map((String item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(item),
+                              ))
+                          .toList(),
+                      onChanged: (value) =>
+                          setState(() => design2.font = value),
+                    ),
+                  ),
+                ),
               ],
             ),
-          );
-        }
-        return Container();
-      },
+          ),
+          SizedBox(height: 16),
+          ElevatedButton(
+              onPressed: () => _save(context), child: Text("Guardar")),
+        ],
+      ),
     );
   }
 
@@ -224,5 +213,22 @@ class _DesignWebState extends State<DesignWeb> {
         ],
       ),
     );
+  }
+
+  void _save(BuildContext context) async {
+    design2.websiteName = _nameController.text;
+    design2.description = _descriptionController.text;
+    String text;
+    try {
+      await api.updateDesign(design2);
+      text = "Diseño actualizado correctamente.";
+    } on ApiException catch (e) {
+      text = e.message;
+    } on Exception {
+      text = "Ha ocurrido un error inesperado, "
+          "por favor, prueba de nuevo más tarde";
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }
