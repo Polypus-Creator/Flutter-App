@@ -5,8 +5,6 @@ import 'package:polypus_app/src/config/routes.dart';
 import 'package:polypus_app/src/ui/widgets/password_text_field.dart';
 
 class LogIn extends StatefulWidget {
-  LogIn();
-
   @override
   _LogInState createState() => _LogInState();
 }
