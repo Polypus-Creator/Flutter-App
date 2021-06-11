@@ -111,7 +111,7 @@ class _DesignWebState extends State<DesignWeb> {
                 ListTile(
                   leading: Icon(
                     Icons.color_lens,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                   ),
                   title: Text(
                     "Color primario",
@@ -134,7 +134,7 @@ class _DesignWebState extends State<DesignWeb> {
                 ListTile(
                   leading: Icon(
                     Icons.color_lens,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                   ),
                   title: Text(
                     "Color secundario",

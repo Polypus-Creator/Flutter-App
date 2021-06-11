@@ -15,9 +15,8 @@ class _ProfileState extends State<Profile> {
     String _avatarUrl = "https://eu.ui-avatars.com/api/"
         "?name=${Globals.user!.username}&size=512"
         "&background=${AppStyles.primaryColor.toHex()}";
-    DateFormat _dateFormatter = DateFormat.yMMMMEEEEd(
-        Localizations.localeOf(context).languageCode
-    );
+    DateFormat _dateFormatter =
+        DateFormat.yMMMMEEEEd(Localizations.localeOf(context).languageCode);
     return ListView(
       children: [
         Column(
@@ -46,14 +45,20 @@ class _ProfileState extends State<Profile> {
             title: Text("Miembro desde",
                 style: TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text(_dateFormatter.format(Globals.user!.createDate)),
-            trailing: Icon(Icons.date_range),
+            trailing: Icon(
+              Icons.date_range,
+              color: Theme.of(context).accentColor,
+            ),
           ),
         ),
         Card(
           child: ListTile(
             title: Text("Email", style: TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text(Globals.user!.email),
-            trailing: Icon(Icons.email),
+            trailing: Icon(
+              Icons.email,
+              color: Theme.of(context).accentColor,
+            ),
           ),
         ),
         Card(
@@ -61,7 +66,10 @@ class _ProfileState extends State<Profile> {
             title: Text("Tipo de Cuenta",
                 style: TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text("Premium"),
-            trailing: Icon(Icons.person),
+            trailing: Icon(
+              Icons.person,
+              color: Theme.of(context).accentColor,
+            ),
           ),
         ),
       ],
