@@ -13,6 +13,9 @@ class _RecoverPasswordState extends State<RecoverPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Recuperar contraseña"),
+      ),
       body: Center(
         child: ListView(children: [
           Padding(

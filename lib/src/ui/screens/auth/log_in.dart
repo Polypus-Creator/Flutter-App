@@ -17,11 +17,13 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     TextStyle textButtonTheme = Theme.of(context)
         .textTheme
-        .headline6!
+        .bodyText2!
         .copyWith(color: Theme.of(context).primaryColor);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Iniciar sesión"),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: ListView(

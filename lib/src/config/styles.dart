@@ -16,7 +16,7 @@ class AppStyles {
       fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
-    button: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    button: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
     bodyText1: TextStyle(),
     bodyText2: TextStyle(),
     subtitle1: TextStyle(),
