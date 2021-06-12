@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polypus_app/src/ui/widgets/password_text_field.dart';
 
 class RecoverPassword extends StatefulWidget {
   @override
@@ -6,137 +7,63 @@ class RecoverPassword extends StatefulWidget {
 }
 
 class _RecoverPasswordState extends State<RecoverPassword> {
-  bool hiddenpasswordA = true;
-
-  bool hiddenpasswordB = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Recuperar contraseña"),
       ),
-      body: Center(
-        child: ListView(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Image.asset(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(
+          children: [
+            Image.asset(
               'assets/polypus.png',
               width: 140.0,
               height: 190.0,
             ),
-          ),
-
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Text(
+            Text(
               "¡Recupera tu Contraseña!",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+              style: Theme.of(context).textTheme.headline5,
             ),
-          ),
-
-          //TextField Email
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  labelText: "Email",
-                ),
-              )),
-          //TextField Usuario
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  labelText: "Escribe la respuesta a la pregunta de seguridad",
-                ),
-              )),
-
-          //TextField Contraseña
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                obscureText: hiddenpasswordA,
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    labelText: "Contraseña",
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        _passwrodVisibleA();
-                      },
-                      icon: hiddenpasswordA
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
-                    )),
-              )),
-          //TextField Confirmacion
-
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: TextField(
-                obscureText: hiddenpasswordB,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      _passwrodVisibleB();
-                    },
-                    icon: hiddenpasswordB
-                        ? Icon(Icons.visibility_off)
-                        : Icon(Icons.visibility),
-                  ),
-                  labelText: "Confirmar Contraseña",
-                ),
-              )),
-
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: ElevatedButton(
+            SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Usuario",
+              ),
+            ),
+            SizedBox(height: 16),
+            //TextField Email
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Email",
+              ),
+            ),
+            SizedBox(height: 16),
+            //TextField Usuario
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Respuesta de la pregunta de seguridad",
+              ),
+            ),
+            SizedBox(height: 16),
+            //TextField Contraseña
+            PasswordTextField(
+              text: "Nueva contraseña",
+            ),
+            SizedBox(height: 16),
+            //TextField Confirmacion
+            PasswordTextField(
+              text: "Confirmar Contraseña",
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
               onPressed: () {},
-              child: Text('Recuperar Contraseña'),
+              child: Text('Recuperar contraseña'),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
-  }
-
-  void _passwrodVisibleA() {
-    setState(() {
-      hiddenpasswordA = !hiddenpasswordA;
-    });
-  }
-
-  void _passwrodVisibleB() {
-    setState(() {
-      hiddenpasswordB = !hiddenpasswordB;
-    });
   }
 }
