@@ -14,7 +14,8 @@ class _SettingsState extends State<Settings> {
       appBar: AppBar(
         title: Text("Ajustes"),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         child: ListView(children: [
           Card(
               child: ListTile(
